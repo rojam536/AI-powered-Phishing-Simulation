@@ -16,10 +16,22 @@ const Login = () => {
     setError('');
     setLoading(true);
     try {
-      const { data } = await authService.login(formData);
-      login(data.user, data.token);
+      console.log('Submitting login with:', formData);
+      const response = await authService.login(formData);
+      console.log('Full response:', response);
+      console.log('Response data:', response.data);
+      
+      if (response.data && response.data.success) {
+        login(response.data.user, response.data.token);
+      } else {
+        setError('Login failed. Please try again.');
+      }
     } catch (err) {
-      setError(err.response?.data?.error || 'Invalid credentials. Please try again.');
+      console.error('Login error:', err);
+      console.error('Error message:', err.message);
+      console.error('Error response:', err.response);
+      console.error('Error data:', err.response?.data);
+      setError(err.response?.data?.error || err.message || 'Invalid credentials. Please try again.');
     } finally {
       setLoading(false);
     }
