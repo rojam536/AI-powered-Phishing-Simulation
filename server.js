@@ -18,7 +18,7 @@ app.use(express.json());
 
 // Enable CORS
 app.use(cors({
-  origin: ['https://ai-powered-phishing-simulation.onrender.com/'],
+  origin: ['https://ai-powered-phishing-simulation.onrender.com'],
   credentials: true
 }));
 
